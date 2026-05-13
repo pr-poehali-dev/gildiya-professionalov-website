@@ -269,9 +269,6 @@ export default function Index() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-dark/96 backdrop-blur-sm border-b border-white/10">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <a href="#" className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-gold flex items-center justify-center flex-shrink-0">
-              <span className="text-white font-cormorant font-bold text-sm">ГП</span>
-            </div>
             <div className="leading-tight">
               <div className="font-cormorant text-white font-semibold text-base tracking-wide leading-none">Гильдия Профессионалов</div>
               <div className="text-gold text-[10px] font-golos tracking-widest uppercase mt-0.5">Медицинское образование</div>
@@ -287,8 +284,8 @@ export default function Index() {
           </div>
 
           <div className="hidden md:flex items-center gap-3">
-            <a href="tel:+78001234567" className="text-white/65 hover:text-gold text-sm transition-colors font-golos">
-              8 800 123-45-67
+            <a href="tel:+79523636235" className="text-white/65 hover:text-gold text-sm transition-colors font-golos">
+              +7 952 363-62-35
             </a>
             <a href="#contacts" className="bg-gold text-white px-5 py-2 text-sm font-medium hover:bg-gold-light transition-colors">
               Записаться
@@ -660,7 +657,7 @@ export default function Index() {
               <div className="gold-line mb-8" />
               <div className="space-y-5 mb-8">
                 {[
-                  { icon: "Phone", label: "Телефон", value: "8 800 123-45-67", sub: "Бесплатно по России, Пн–Пт 8:00–20:00" },
+                  { icon: "Phone", label: "Телефон", value: "+7 952 363-62-35", sub: "Пн–Пт 8:00–20:00" },
                   { icon: "Mail", label: "E-mail", value: "info@gildiya-prof.ru", sub: "Ответим в течение 2 часов" },
                   { icon: "MapPin", label: "Адрес", value: "Москва, ул. Тверская, 1", sub: "Документы также отправляем по почте" },
                 ].map((contact, i) => (
