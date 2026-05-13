@@ -65,6 +65,7 @@ function useInView(threshold = 0.15) {
 export default function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(0);
+  const [showAllSpecialties, setShowAllSpecialties] = useState(false);
 
   const heroSection = useInView(0.1);
   const aboutSection = useInView(0.15);
@@ -284,10 +285,55 @@ export default function Index() {
           </div>
 
           <div className="text-center mt-10">
-            <button className="border border-gold text-gold px-8 py-3 font-golos text-sm hover:bg-gold hover:text-white transition-all duration-300">
+            <button
+              onClick={() => setShowAllSpecialties(true)}
+              className="border border-gold text-gold px-8 py-3 font-golos text-sm hover:bg-gold hover:text-white transition-all duration-300">
               Посмотреть все специальности
             </button>
           </div>
+
+          {/* MODAL: все специальности */}
+          {showAllSpecialties && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark/80 backdrop-blur-sm" onClick={() => setShowAllSpecialties(false)}>
+              <div className="bg-background border border-border w-full max-w-4xl max-h-[80vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
+                <div className="flex items-center justify-between px-8 py-6 border-b border-border sticky top-0 bg-background z-10">
+                  <div>
+                    <h3 className="font-cormorant text-2xl text-foreground font-light">Все специальности</h3>
+                    <p className="text-muted-foreground text-xs font-golos mt-0.5">6 направлений · более 200 специальностей</p>
+                  </div>
+                  <button onClick={() => setShowAllSpecialties(false)} className="text-muted-foreground hover:text-foreground transition-colors p-1">
+                    <Icon name="X" size={20} />
+                  </button>
+                </div>
+                <div className="p-8 grid md:grid-cols-2 gap-8">
+                  {catalog.map((cat, ci) => (
+                    <div key={ci}>
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-1.5 h-5 bg-gold flex-shrink-0" />
+                        <h4 className="font-cormorant text-lg text-foreground font-medium">{cat.category}</h4>
+                      </div>
+                      <div className="space-y-2">
+                        {cat.items.map((item, ii) => (
+                          <div key={ii} className="flex items-center gap-3 py-2 border-b border-border/50 last:border-0 group cursor-pointer hover:pl-1 transition-all duration-200">
+                            <div className="w-1.5 h-1.5 rounded-full bg-gold/50 group-hover:bg-gold flex-shrink-0 transition-colors" />
+                            <span className="font-golos text-sm text-foreground/70 group-hover:text-foreground transition-colors">{item}</span>
+                            <Icon name="ArrowRight" size={12} className="ml-auto text-foreground/20 group-hover:text-gold transition-colors" />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="px-8 py-6 border-t border-border bg-muted/30 flex items-center justify-between">
+                  <p className="text-muted-foreground text-sm font-golos">Не нашли нужную специальность?</p>
+                  <a href="#contacts" onClick={() => setShowAllSpecialties(false)}
+                    className="bg-gold text-white px-6 py-2.5 text-sm font-golos hover:bg-gold-light transition-colors">
+                    Задать вопрос
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
