@@ -24,5 +24,19 @@
       "expectedBody": [],
       "bodyMatcher": "exact"
     }
+    ,{
+      "name": "GET services",
+      "method": "GET",
+      "path": "/?resource=services",
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "GET prices",
+      "method": "GET",
+      "path": "/?resource=prices",
+      "expectedStatus": 200,
+      "bodyMatcher": "partial"
+    }
   ]
 }
