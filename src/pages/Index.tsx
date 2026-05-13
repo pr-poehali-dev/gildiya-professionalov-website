@@ -6,44 +6,145 @@ const CERT_IMAGE = "https://cdn.poehali.dev/projects/258a709f-23c7-42b6-8352-6f3
 const TEAM_IMAGE = "https://cdn.poehali.dev/projects/258a709f-23c7-42b6-8352-6f3b2496d570/files/d67125a7-0ddc-4d51-afb3-3999ee1a5330.jpg";
 
 const services = [
-  { icon: "Award", title: "Сертификация специалистов", desc: "Официальное подтверждение квалификации в соответствии с профессиональными стандартами", price: "от 8 000 ₽", tag: "Популярно" },
-  { icon: "GraduationCap", title: "Корпоративное обучение", desc: "Разработка и проведение обучающих программ для сотрудников вашей компании", price: "от 45 000 ₽", tag: null },
-  { icon: "BookOpen", title: "Профессиональная переподготовка", desc: "Получение новой квалификации с выдачей диплома установленного образца", price: "от 25 000 ₽", tag: "Новинка" },
-  { icon: "ClipboardCheck", title: "Независимая оценка квалификации", desc: "Экспертная оценка профессиональных компетенций специалиста", price: "от 12 000 ₽", tag: null },
-  { icon: "FileText", title: "Разработка профстандартов", desc: "Создание и актуализация профессиональных стандартов для отраслей", price: "от 120 000 ₽", tag: null },
-  { icon: "Users", title: "Консалтинг в области HR", desc: "Консультирование по вопросам управления персоналом и квалификационным требованиям", price: "от 15 000 ₽", tag: null },
+  { icon: "GraduationCap", title: "Профессиональная переподготовка", desc: "Диплом о переподготовке установленного образца. Даёт право вести деятельность в новой сфере. Срок обучения от 250 часов.", price: "от 12 000 ₽", tag: "Популярно" },
+  { icon: "TrendingUp", title: "Повышение квалификации", desc: "Удостоверение о повышении квалификации. Обновление знаний и компетенций по профилю. Срок от 16 часов.", price: "от 4 500 ₽", tag: "Быстро" },
+  { icon: "BookOpen", title: "Профессиональное обучение", desc: "Свидетельство о профессии рабочего или должности служащего. Для получения первичных навыков.", price: "от 6 000 ₽", tag: null },
+  { icon: "Building2", title: "Корпоративное ДПО", desc: "Обучение сотрудников компании по индивидуальной программе. Выезд преподавателя, дистанционный формат.", price: "от 35 000 ₽", tag: null },
+  { icon: "Award", title: "Независимая оценка квалификации", desc: "Свидетельство о квалификации НОК. Официальное подтверждение соответствия профессиональному стандарту.", price: "от 8 000 ₽", tag: null },
+  { icon: "Monitor", title: "Дистанционное обучение", desc: "Все программы доступны онлайн. Учитесь в удобное время, сдавайте итоговый тест и получайте документ.", price: "от 3 500 ₽", tag: "Онлайн" },
 ];
 
 const stats = [
-  { value: "12+", label: "лет на рынке" },
-  { value: "8 400+", label: "сертифицированных специалистов" },
-  { value: "340+", label: "партнёрских компаний" },
-  { value: "98%", label: "клиентов рекомендуют нас" },
+  { value: "12+", label: "лет на рынке ДПО" },
+  { value: "15 000+", label: "выданных документов об образовании" },
+  { value: "500+", label: "программ обучения" },
+  { value: "98%", label: "слушателей рекомендуют нас" },
 ];
 
 const catalog = [
-  { category: "Строительство и ЖКХ", items: ["Инженер-проектировщик", "Специалист по охране труда", "Энергоаудитор", "Сметчик"] },
-  { category: "IT и цифровые технологии", items: ["Системный аналитик", "Менеджер проекта", "Специалист по ИБ", "DevOps-инженер"] },
-  { category: "Финансы и право", items: ["Бухгалтер", "Аудитор", "Специалист по комплаенс", "Налоговый консультант"] },
-  { category: "Управление и менеджмент", items: ["Руководитель проекта", "HR-менеджер", "Операционный директор", "Бизнес-аналитик"] },
-  { category: "Медицина и фармация", items: ["Медицинский представитель", "Провизор", "Специалист по качеству", "Клинический исследователь"] },
-  { category: "Образование", items: ["Педагог дополнительного образования", "Тренер-методист", "Тьютор", "Куратор образовательных программ"] },
+  {
+    category: "Переподготовка (от 250 ч.)",
+    items: [
+      "Управление персоналом и HR",
+      "Бухгалтерский учёт и налогообложение",
+      "Педагогика и образование",
+      "Охрана труда и промышленная безопасность",
+      "Государственное и муниципальное управление",
+      "Менеджмент в здравоохранении",
+      "Психология и консультирование",
+      "Строительство и экспертиза",
+    ]
+  },
+  {
+    category: "Повышение квалификации (от 16 ч.)",
+    items: [
+      "Охрана труда (40 / 72 часа)",
+      "Пожарно-технический минимум",
+      "Первая помощь пострадавшим",
+      "Закупки по 44-ФЗ и 223-ФЗ",
+      "Педагог дополнительного образования",
+      "Использование ИИ в профессии",
+      "Цифровая грамотность руководителя",
+      "Управление проектами (PMBOK / Agile)",
+    ]
+  },
+  {
+    category: "Профессиональное обучение",
+    items: [
+      "Оператор котельной",
+      "Водитель погрузчика / автокрана",
+      "Сварщик",
+      "Стропальщик",
+      "Специалист по работе с персоналом",
+      "Кассир торгового зала",
+      "Делопроизводитель",
+      "Оператор ПК и офисных программ",
+    ]
+  },
+  {
+    category: "Охрана труда и безопасность",
+    items: [
+      "Руководители и специалисты (обяз. 40 ч.)",
+      "Члены комиссий по проверке знаний",
+      "Работа на высоте (гр. 1, 2, 3)",
+      "Электробезопасность (гр. II–V)",
+      "Промышленная безопасность (А1–Е1)",
+      "Пожарная безопасность",
+      "Оказание первой помощи",
+      "Экологическая безопасность",
+    ]
+  },
+  {
+    category: "Государственное управление",
+    items: [
+      "Государственные и муниципальные закупки",
+      "Антикоррупционное законодательство",
+      "Документооборот и делопроизводство",
+      "Бюджетный учёт и отчётность",
+      "Цифровое государственное управление",
+      "Работа с обращениями граждан",
+      "Правовое обеспечение деятельности",
+      "Контрольно-надзорная деятельность",
+    ]
+  },
+  {
+    category: "Педагогика и образование",
+    items: [
+      "Педагог дополнительного образования",
+      "Тьютор в системе образования",
+      "Инклюзивное образование",
+      "Логопед-дефектолог",
+      "Педагог-психолог",
+      "Методист образовательной организации",
+      "Воспитатель детского сада",
+      "Преподаватель высшей школы",
+    ]
+  },
 ];
 
 const prices = [
   {
-    name: "Базовый", price: "8 000 ₽", period: "за специалиста", highlight: false,
-    features: ["Сертификация 1 специалиста", "Онлайн-тестирование", "Электронный сертификат", "Срок действия 3 года", "Техподдержка по e-mail"],
-    cta: "Оформить",
+    name: "Повышение квалификации",
+    price: "от 4 500 ₽",
+    period: "от 16 до 144 часов",
+    highlight: false,
+    features: [
+      "Удостоверение о повышении квалификации",
+      "Онлайн-обучение в удобное время",
+      "Доступ к материалам 6 месяцев",
+      "Итоговое тестирование",
+      "Документ в течение 5 рабочих дней",
+    ],
+    cta: "Записаться",
   },
   {
-    name: "Профессиональный", price: "45 000 ₽", period: "до 10 специалистов", highlight: true,
-    features: ["Сертификация до 10 специалистов", "Очное или онлайн-обучение", "Именные сертификаты", "Срок действия 3 года", "Персональный менеджер", "Выезд в офис компании"],
-    cta: "Выбрать тариф",
+    name: "Профпереподготовка",
+    price: "от 12 000 ₽",
+    period: "от 250 часов",
+    highlight: true,
+    features: [
+      "Диплом о профессиональной переподготовке",
+      "Право на новый вид деятельности",
+      "Очный, заочный или онлайн-формат",
+      "Персональный куратор на весь курс",
+      "Рассрочка без переплат",
+      "Документ вносится в ФИС ФРДО",
+    ],
+    cta: "Получить программу",
   },
   {
-    name: "Корпоративный", price: "Индивидуально", period: "от 11 специалистов", highlight: false,
-    features: ["Неограниченное число специалистов", "Разработка программы под компанию", "Корпоративный аккаунт", "Поддержка 24/7", "Отчётность и аналитика", "Юридическое сопровождение"],
+    name: "Корпоративное обучение",
+    price: "Индивидуально",
+    period: "от 10 сотрудников",
+    highlight: false,
+    features: [
+      "Обучение всей команды под ключ",
+      "Разработка программы под компанию",
+      "Выезд преподавателя в офис",
+      "Закрывающие документы для бухгалтерии",
+      "Корпоративный личный кабинет",
+      "Рассрочка и счёт для юрлиц",
+    ],
     cta: "Запросить КП",
   },
 ];
@@ -146,22 +247,22 @@ export default function Index() {
         <div ref={heroSection.ref} className={`relative z-10 container mx-auto px-4 pt-16 transition-all duration-1000 ${heroSection.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="max-w-3xl">
             <p className="text-gold font-golos text-sm tracking-[0.3em] uppercase mb-6 opacity-90">
-              Официальная сертификация специалистов
+              Лицензированное дополнительное профессиональное образование
             </p>
             <h1 className="font-cormorant text-5xl md:text-7xl text-white font-light leading-[1.1] mb-6">
-              Ваша квалификация —<br />
-              <em className="gold-gradient-text not-italic font-medium">ваш капитал</em>
+              Учитесь. Растите.<br />
+              <em className="gold-gradient-text not-italic font-medium">Подтверждайте.</em>
             </h1>
             <p className="text-white/70 text-lg md:text-xl leading-relaxed max-w-xl mb-10 font-golos font-light">
-              Профессиональная сертификация, корпоративное обучение и оценка квалификации специалистов в соответствии с государственными стандартами
+              Профессиональная переподготовка, повышение квалификации и профессиональное обучение с выдачей документов государственного образца
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#services" className="inline-flex items-center justify-center gap-2 bg-gold text-white px-8 py-4 font-golos font-medium text-sm tracking-wide hover:bg-gold-light transition-all duration-300 hover:shadow-lg hover:shadow-gold/30">
-                Наши услуги
+              <a href="#catalog" className="inline-flex items-center justify-center gap-2 bg-gold text-white px-8 py-4 font-golos font-medium text-sm tracking-wide hover:bg-gold-light transition-all duration-300 hover:shadow-lg hover:shadow-gold/30">
+                Выбрать программу
                 <Icon name="ArrowRight" size={16} />
               </a>
               <a href="#contacts" className="inline-flex items-center justify-center gap-2 border border-white/30 text-white px-8 py-4 font-golos font-medium text-sm tracking-wide hover:border-gold hover:text-gold transition-all duration-300">
-                Получить консультацию
+                Бесплатная консультация
               </a>
             </div>
           </div>
@@ -186,22 +287,22 @@ export default function Index() {
             <div>
               <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4 font-golos">О компании</p>
               <h2 className="font-cormorant text-4xl md:text-5xl text-foreground font-light leading-tight mb-6">
-                Более 12 лет<br />в области<br />
-                <em className="not-italic font-medium text-gold">профессионального развития</em>
+                Более 12 лет<br />в сфере<br />
+                <em className="not-italic font-medium text-gold">дополнительного образования</em>
               </h2>
               <div className="gold-line mb-8" />
               <p className="text-muted-foreground leading-relaxed mb-6 font-golos">
-                Гильдия Профессионалов — ведущий центр сертификации и обучения специалистов в России. Мы работаем в полном соответствии с требованиями профессиональных стандартов и Федерального закона № 238-ФЗ.
+                Гильдия Профессионалов — лицензированный образовательный центр ДПО. Реализуем программы профессиональной переподготовки, повышения квалификации и профессионального обучения в соответствии с Федеральным законом № 273-ФЗ «Об образовании в РФ».
               </p>
               <p className="text-muted-foreground leading-relaxed mb-10 font-golos">
-                Наши эксперты — практикующие специалисты с глубокими знаниями отраслевых стандартов. Мы помогаем людям подтвердить свою квалификацию и открыть новые карьерные горизонты.
+                Все документы об образовании вносятся в ФИС ФРДО и имеют юридическую силу. Обучение доступно очно, заочно и дистанционно — выбирайте удобный формат.
               </p>
               <div className="grid grid-cols-2 gap-6">
                 {[
-                  { icon: "Shield", text: "Аккредитованный центр оценки квалификации" },
-                  { icon: "Award", text: "Государственное признание сертификатов" },
-                  { icon: "Clock", text: "Оперативное оформление в срок от 5 дней" },
-                  { icon: "HeartHandshake", text: "Персональный подход к каждому клиенту" },
+                  { icon: "Shield", text: "Лицензия Министерства образования РФ" },
+                  { icon: "Award", text: "Документы вносятся в реестр ФИС ФРДО" },
+                  { icon: "Clock", text: "Документ об образовании от 5 рабочих дней" },
+                  { icon: "HeartHandshake", text: "Рассрочка без переплат для физлиц и юрлиц" },
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-full bg-gold-pale flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -228,8 +329,8 @@ export default function Index() {
       <section id="services" className="py-24 section-dark">
         <div ref={servicesSection.ref} className={`container mx-auto px-4 transition-all duration-700 ${servicesSection.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="text-center mb-16">
-            <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4 font-golos">Что мы делаем</p>
-            <h2 className="font-cormorant text-4xl md:text-5xl text-white font-light">Наши услуги</h2>
+            <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4 font-golos">Форматы обучения</p>
+            <h2 className="font-cormorant text-4xl md:text-5xl text-white font-light">Программы ДПО</h2>
             <div className="gold-line mx-auto mt-6" />
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -257,10 +358,10 @@ export default function Index() {
       <section id="catalog" className="py-24 bg-background">
         <div ref={catalogSection.ref} className={`container mx-auto px-4 transition-all duration-700 ${catalogSection.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="text-center mb-16">
-            <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4 font-golos">Направления</p>
-            <h2 className="font-cormorant text-4xl md:text-5xl text-foreground font-light">Каталог специальностей</h2>
+            <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4 font-golos">Выберите направление</p>
+            <h2 className="font-cormorant text-4xl md:text-5xl text-foreground font-light">Каталог программ ДПО</h2>
             <div className="gold-line mx-auto mt-6" />
-            <p className="text-muted-foreground mt-6 max-w-lg mx-auto font-golos">Более 200 специальностей в 6 отраслевых направлениях</p>
+            <p className="text-muted-foreground mt-6 max-w-lg mx-auto font-golos">Более 500 программ в 6 направлениях — переподготовка, повышение квалификации и профобучение</p>
           </div>
 
           <div className="flex flex-wrap gap-2 justify-center mb-10">
@@ -288,7 +389,7 @@ export default function Index() {
             <button
               onClick={() => setShowAllSpecialties(true)}
               className="border border-gold text-gold px-8 py-3 font-golos text-sm hover:bg-gold hover:text-white transition-all duration-300">
-              Посмотреть все специальности
+              Посмотреть все программы
             </button>
           </div>
 
@@ -298,8 +399,8 @@ export default function Index() {
               <div className="bg-background border border-border w-full max-w-4xl max-h-[80vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
                 <div className="flex items-center justify-between px-8 py-6 border-b border-border sticky top-0 bg-background z-10">
                   <div>
-                    <h3 className="font-cormorant text-2xl text-foreground font-light">Все специальности</h3>
-                    <p className="text-muted-foreground text-xs font-golos mt-0.5">6 направлений · более 200 специальностей</p>
+                    <h3 className="font-cormorant text-2xl text-foreground font-light">Все программы ДПО</h3>
+                    <p className="text-muted-foreground text-xs font-golos mt-0.5">6 направлений · более 500 программ</p>
                   </div>
                   <button onClick={() => setShowAllSpecialties(false)} className="text-muted-foreground hover:text-foreground transition-colors p-1">
                     <Icon name="X" size={20} />
@@ -344,14 +445,14 @@ export default function Index() {
           <div className="absolute inset-0 bg-dark/80" />
         </div>
         <div className="relative z-10 container mx-auto px-4 text-center">
-          <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4 font-golos">Почему мы</p>
+          <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4 font-golos">Почему выбирают нас</p>
           <h2 className="font-cormorant text-4xl md:text-5xl text-white font-light mb-16">Наши преимущества</h2>
           <div className="grid md:grid-cols-4 gap-8">
             {[
-              { icon: "BadgeCheck", title: "Государственная аккредитация", desc: "Все сертификаты имеют юридическую силу" },
-              { icon: "Zap", title: "Быстрое оформление", desc: "Сертификат готов от 5 рабочих дней" },
-              { icon: "Globe", title: "Онлайн и офлайн", desc: "Форматы обучения на ваш выбор" },
-              { icon: "TrendingUp", title: "Карьерный рост", desc: "Подтверждённая квалификация — ваше конкурентное преимущество" },
+              { icon: "BadgeCheck", title: "Лицензия Минобрнауки", desc: "Документы об образовании имеют юридическую силу и вносятся в ФИС ФРДО" },
+              { icon: "Zap", title: "Документ от 5 дней", desc: "Быстрое оформление — от обращения до получения удостоверения" },
+              { icon: "Globe", title: "Онлайн и офлайн", desc: "Очный, заочный и дистанционный формат — выбирайте удобный" },
+              { icon: "Wallet", title: "Рассрочка без процентов", desc: "Оплата частями для физлиц. Выставление счёта для организаций" },
             ].map((item, i) => (
               <div key={i} className="text-center group">
                 <div className="w-16 h-16 rounded-full border border-gold/30 flex items-center justify-center mx-auto mb-5 group-hover:border-gold group-hover:bg-gold/10 transition-all duration-300">
@@ -369,8 +470,8 @@ export default function Index() {
       <section id="prices" className="py-24 bg-background">
         <div ref={pricesSection.ref} className={`container mx-auto px-4 transition-all duration-700 ${pricesSection.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="text-center mb-16">
-            <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4 font-golos">Стоимость</p>
-            <h2 className="font-cormorant text-4xl md:text-5xl text-foreground font-light">Тарифные планы</h2>
+            <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4 font-golos">Стоимость обучения</p>
+            <h2 className="font-cormorant text-4xl md:text-5xl text-foreground font-light">Программы и цены</h2>
             <div className="gold-line mx-auto mt-6" />
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -408,7 +509,7 @@ export default function Index() {
             <div>
               <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4 font-golos">Свяжитесь с нами</p>
               <h2 className="font-cormorant text-4xl md:text-5xl text-white font-light mb-6">
-                Готовы ответить<br />на ваши вопросы
+                Подберём программу<br />под ваши задачи
               </h2>
               <div className="gold-line mb-8" />
               <div className="space-y-6">
@@ -432,7 +533,7 @@ export default function Index() {
             </div>
 
             <div className="bg-white/5 border border-white/10 p-8">
-              <h3 className="font-cormorant text-2xl text-white mb-6">Оставить заявку</h3>
+              <h3 className="font-cormorant text-2xl text-white mb-6">Записаться на обучение</h3>
               <div className="space-y-4">
                 <div>
                   <label className="text-white/50 text-xs font-golos tracking-wide block mb-2">Ваше имя</label>
@@ -443,21 +544,22 @@ export default function Index() {
                   <input type="tel" placeholder="+7 (999) 000-00-00" className="w-full bg-white/5 border border-white/15 text-white placeholder-white/25 px-4 py-3 text-sm font-golos focus:outline-none focus:border-gold transition-colors" />
                 </div>
                 <div>
-                  <label className="text-white/50 text-xs font-golos tracking-wide block mb-2">Что вас интересует?</label>
+                  <label className="text-white/50 text-xs font-golos tracking-wide block mb-2">Программа обучения</label>
                   <select className="w-full bg-dark border border-white/15 text-white/70 px-4 py-3 text-sm font-golos focus:outline-none focus:border-gold transition-colors">
-                    <option>Сертификация специалистов</option>
-                    <option>Корпоративное обучение</option>
                     <option>Профессиональная переподготовка</option>
-                    <option>Консалтинг</option>
-                    <option>Другое</option>
+                    <option>Повышение квалификации</option>
+                    <option>Профессиональное обучение</option>
+                    <option>Корпоративное ДПО (для организации)</option>
+                    <option>Независимая оценка квалификации (НОК)</option>
+                    <option>Не знаю — нужна консультация</option>
                   </select>
                 </div>
                 <div>
-                  <label className="text-white/50 text-xs font-golos tracking-wide block mb-2">Комментарий</label>
-                  <textarea rows={3} placeholder="Опишите вашу задачу..." className="w-full bg-white/5 border border-white/15 text-white placeholder-white/25 px-4 py-3 text-sm font-golos focus:outline-none focus:border-gold transition-colors resize-none" />
+                  <label className="text-white/50 text-xs font-golos tracking-wide block mb-2">Нужная специальность / направление</label>
+                  <textarea rows={2} placeholder="Например: охрана труда, бухгалтерский учёт, педагогика..." className="w-full bg-white/5 border border-white/15 text-white placeholder-white/25 px-4 py-3 text-sm font-golos focus:outline-none focus:border-gold transition-colors resize-none" />
                 </div>
                 <button className="w-full bg-gold text-white py-4 font-golos font-medium text-sm tracking-wide hover:bg-gold-light transition-colors">
-                  Отправить заявку
+                  Записаться на обучение
                 </button>
                 <p className="text-white/25 text-xs font-golos text-center">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
               </div>
