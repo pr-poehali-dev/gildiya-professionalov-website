@@ -604,8 +604,7 @@ export default function Index() {
               <div className="space-y-5 mb-8">
                 {[
                   { icon: "Phone", label: "Телефон", value: "+7 952 363-62-35", sub: "Пн–Пт 8:00–20:00" },
-                  { icon: "Mail", label: "E-mail", value: "info@gildiya-prof.ru", sub: "Ответим в течение 2 часов" },
-                  { icon: "MapPin", label: "Адрес", value: "Москва, ул. Тверская, 1", sub: "Документы также отправляем по почте" },
+                  { icon: "Mail", label: "E-mail", value: "info@gildiapro.ru", sub: "Ответим в течение 2 часов" },
                 ].map((contact, i) => (
                   <div key={i} className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center flex-shrink-0">
