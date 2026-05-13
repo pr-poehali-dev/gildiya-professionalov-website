@@ -230,7 +230,7 @@ export default function Index() {
         </div>
 
         {menuOpen && (
-          <div className="lg:hidden bg-dark border-t border-white/10 px-4 pb-4">
+          <div className="lg:hidden bg-dark border-t border-white/10 px-4 pb-5">
             {navLinks.map(link => (
               <a key={link.href} href={link.href}
                 className="block py-3 text-white/70 hover:text-gold text-sm border-b border-white/5 font-golos"
@@ -238,7 +238,12 @@ export default function Index() {
                 {link.label}
               </a>
             ))}
-            <a href="#contacts" className="block mt-4 w-full bg-gold text-white text-center py-3 text-sm font-medium">
+            <a href="tel:+79523636235" className="flex items-center gap-2 py-3 text-white/55 text-sm border-b border-white/5 font-golos">
+              <Icon name="Phone" size={14} className="text-gold" />
+              +7 952 363-62-35
+            </a>
+            <a href="#contacts" className="block mt-4 w-full bg-gold text-white text-center py-3 text-sm font-medium"
+              onClick={() => setMenuOpen(false)}>
               Записаться на обучение
             </a>
           </div>
@@ -258,11 +263,11 @@ export default function Index() {
               <div className="w-1.5 h-1.5 rounded-full bg-gold" />
               <span className="text-gold font-golos text-xs tracking-[0.25em] uppercase">Лицензированное ДПО для медработников</span>
             </div>
-            <h1 className="font-cormorant text-5xl md:text-7xl text-white font-light leading-[1.05] mb-6">
+            <h1 className="font-cormorant text-4xl sm:text-5xl md:text-7xl text-white font-light leading-[1.05] mb-6">
               Аккредитация.<br />Обучение.<br />
               <em className="gold-gradient-text not-italic font-medium">Карьерный рост.</em>
             </h1>
-            <p className="text-white/70 text-lg leading-relaxed max-w-xl mb-4 font-golos font-light">
+            <p className="text-white/70 text-base leading-relaxed max-w-xl mb-4 font-golos font-light">
               Периодическая аккредитация, повышение квалификации и профессиональная переподготовка для врачей, медсестёр и фармацевтов
             </p>
             <p className="text-white/45 text-sm font-golos mb-10">
@@ -282,11 +287,11 @@ export default function Index() {
 
         {/* Stats bar */}
         <div className="absolute bottom-0 left-0 right-0 bg-dark/85 backdrop-blur-sm border-t border-white/10">
-          <div className="container mx-auto px-4 py-5 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="container mx-auto px-4 py-4 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {stats.map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="font-cormorant text-3xl md:text-4xl text-gold font-semibold">{stat.value}</div>
-                <div className="text-white/45 text-xs mt-0.5 font-golos">{stat.label}</div>
+              <div key={i} className="text-center py-1">
+                <div className="font-cormorant text-2xl md:text-4xl text-gold font-semibold">{stat.value}</div>
+                <div className="text-white/45 text-[10px] md:text-xs mt-0.5 font-golos leading-tight">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -296,7 +301,7 @@ export default function Index() {
       {/* ── О НАС ── */}
       <section id="about" className="py-24 bg-background texture-bg">
         <div ref={aboutSection.ref} className={`container mx-auto px-4 transition-all duration-700 ${aboutSection.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
             <div>
               <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4 font-golos">О центре</p>
               <h2 className="font-cormorant text-4xl md:text-5xl text-foreground font-light leading-tight mb-6">
@@ -326,11 +331,11 @@ export default function Index() {
                 ))}
               </div>
             </div>
-            <div className="relative">
-              <div className="absolute -top-4 -left-4 w-full h-full border border-gold/20" />
-              <img src={CERT_IMAGE} alt="Документы об образовании" className="relative z-10 w-full object-cover shadow-2xl" style={{ height: '460px' }} />
-              <div className="absolute bottom-8 -right-6 z-20 bg-dark text-white p-5 shadow-xl border-l-2 border-gold">
-                <div className="font-cormorant text-4xl font-semibold text-gold">25K+</div>
+            <div className="relative mt-8 md:mt-0">
+              <div className="absolute -top-4 -left-4 w-full h-full border border-gold/20 hidden sm:block" />
+              <img src={CERT_IMAGE} alt="Документы об образовании" className="relative z-10 w-full object-cover shadow-2xl" style={{ height: 'clamp(260px, 40vw, 460px)' }} />
+              <div className="absolute bottom-4 -right-3 sm:bottom-8 sm:-right-6 z-20 bg-dark text-white p-3 sm:p-5 shadow-xl border-l-2 border-gold">
+                <div className="font-cormorant text-3xl sm:text-4xl font-semibold text-gold">25K+</div>
                 <div className="text-xs text-white/55 mt-1 font-golos">обученных<br />медработников</div>
               </div>
             </div>
@@ -392,13 +397,13 @@ export default function Index() {
           </div>
 
           {/* Tabs */}
-          <div className="flex flex-wrap gap-2 justify-center mb-8">
+          <div className="flex gap-2 overflow-x-auto pb-2 mb-8 scrollbar-hide sm:flex-wrap sm:justify-center sm:overflow-visible sm:pb-0">
             {catalog.map((cat, i) => (
               <button key={i} onClick={() => setActiveCategory(i)}
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-golos border transition-all duration-200 ${activeCategory === i
+                className={`flex items-center gap-2 px-3 sm:px-4 py-2 text-xs sm:text-sm font-golos border transition-all duration-200 whitespace-nowrap flex-shrink-0 ${activeCategory === i
                   ? 'bg-gold text-white border-gold'
                   : 'border-border text-foreground/55 hover:border-gold hover:text-gold'}`}>
-                <Icon name={cat.icon} size={14} />
+                <Icon name={cat.icon} size={13} />
                 <span className="hidden sm:inline">{cat.category}</span>
                 <span className="sm:hidden">{cat.category.split("—")[0].trim()}</span>
               </button>
@@ -433,18 +438,18 @@ export default function Index() {
 
           {/* MODAL */}
           {showAllPrograms && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark/85 backdrop-blur-sm" onClick={() => setShowAllPrograms(false)}>
-              <div className="bg-background border border-border w-full max-w-5xl max-h-[85vh] overflow-y-auto shadow-2xl" onClick={e => e.stopPropagation()}>
-                <div className="flex items-center justify-between px-8 py-5 border-b border-border sticky top-0 bg-background z-10">
+            <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-dark/85 backdrop-blur-sm" onClick={() => setShowAllPrograms(false)}>
+              <div className="bg-background border border-border w-full max-w-5xl max-h-[92vh] sm:max-h-[85vh] overflow-y-auto shadow-2xl rounded-t-2xl sm:rounded-none" onClick={e => e.stopPropagation()}>
+                <div className="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 border-b border-border sticky top-0 bg-background z-10">
                   <div>
-                    <h3 className="font-cormorant text-2xl text-foreground font-light">Все программы ДПО</h3>
-                    <p className="text-muted-foreground text-xs font-golos mt-0.5">6 направлений · более 600 программ · для врачей, медсестёр, фармацевтов</p>
+                    <h3 className="font-cormorant text-xl sm:text-2xl text-foreground font-light">Все программы ДПО</h3>
+                    <p className="text-muted-foreground text-xs font-golos mt-0.5 hidden sm:block">6 направлений · более 600 программ · для врачей, медсестёр, фармацевтов</p>
                   </div>
-                  <button onClick={() => setShowAllPrograms(false)} className="text-muted-foreground hover:text-foreground transition-colors p-1">
+                  <button onClick={() => setShowAllPrograms(false)} className="text-muted-foreground hover:text-foreground transition-colors p-2">
                     <Icon name="X" size={20} />
                   </button>
                 </div>
-                <div className="p-8 grid md:grid-cols-2 gap-8">
+                <div className="p-4 sm:p-8 grid md:grid-cols-2 gap-6 sm:gap-8">
                   {catalog.map((cat, ci) => (
                     <div key={ci}>
                       <div className="flex items-center gap-3 mb-4">
@@ -468,10 +473,10 @@ export default function Index() {
                     </div>
                   ))}
                 </div>
-                <div className="px-8 py-5 border-t border-border bg-muted/20 flex items-center justify-between">
+                <div className="px-4 sm:px-8 py-4 sm:py-5 border-t border-border bg-muted/20 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-0 justify-between">
                   <p className="text-muted-foreground text-sm font-golos">Не нашли нужную специальность?</p>
                   <a href="#contacts" onClick={() => setShowAllPrograms(false)}
-                    className="bg-gold text-white px-6 py-2.5 text-sm font-golos hover:bg-gold-light transition-colors">
+                    className="w-full sm:w-auto text-center bg-gold text-white px-6 py-2.5 text-sm font-golos hover:bg-gold-light transition-colors">
                     Запросить программу
                   </a>
                 </div>
@@ -523,7 +528,7 @@ export default function Index() {
             <div className="gold-line mx-auto mt-6" />
             <p className="text-muted-foreground mt-4 text-sm font-golos">Рассрочка без процентов · Счёт для юрлиц · Налоговый вычет 13%</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-7 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-7 max-w-5xl mx-auto">
             {dbPrices.length === 0 ? (
               Array.from({ length: 3 }).map((_, i) => (
                 <div key={i} className="border-2 border-border bg-card p-8 animate-pulse">
@@ -594,7 +599,7 @@ export default function Index() {
       {/* ── КОНТАКТЫ ── */}
       <section id="contacts" className="py-24 bg-background">
         <div ref={contactSection.ref} className={`container mx-auto px-4 transition-all duration-700 ${contactSection.inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="grid md:grid-cols-2 gap-16 items-start">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
             <div>
               <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4 font-golos">Записаться на обучение</p>
               <h2 className="font-cormorant text-4xl md:text-5xl text-foreground font-light mb-6">
@@ -634,7 +639,7 @@ export default function Index() {
               </div>
             </div>
 
-            <div className="bg-dark border border-white/10 p-8">
+            <div className="bg-dark border border-white/10 p-5 sm:p-8">
               <h3 className="font-cormorant text-2xl text-white mb-2">Оставить заявку</h3>
               <p className="text-white/40 text-xs font-golos mb-6">Перезвоним в течение 15 минут и подберём программу</p>
               <div className="space-y-4">
