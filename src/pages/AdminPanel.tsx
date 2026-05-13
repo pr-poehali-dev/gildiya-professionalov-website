@@ -106,7 +106,8 @@ export default function AdminPanel() {
   async function addEmployee() {
     if (!newEmp.name.trim() || !newEmp.email.trim()) return;
     const r = await fetch(`${API}?resource=employees`, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(newEmp) });
-    setEmployees(p => [...p, await r.json()]);
+    const created = await r.json();
+    setEmployees(p => [...p, created]);
     setNewEmp({ name:"", email:"", role:"Менеджер" }); setShowEmpForm(false);
   }
   async function toggleEmployee(emp: Employee) {
@@ -127,7 +128,8 @@ export default function AdminPanel() {
     const service = selectedServices.map(s=>s.title).join("; ");
     const items   = selectedServices.map(s=>s.title);
     const r = await fetch(`${API}?resource=proposals`, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({...newProp, amount, service, items}) });
-    setProposals(p => [await r.json(), ...p]);
+    const created = await r.json();
+    setProposals(p => [created, ...p]);
     setNewProp({ client:"", author:"", comment:"" }); setSelectedServices([]); setShowPropForm(false);
   }
   async function changePropStatus(id: number, status: string) {
@@ -151,7 +153,8 @@ export default function AdminPanel() {
       setServices(p => p.map(s => s.id===editSvc.id ? updated : s));
     } else {
       const r = await fetch(`${API}?resource=services`, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(svcDraft) });
-      setServices(p => [...p, await r.json()]);
+      const created = await r.json();
+      setServices(p => [...p, created]);
     }
     setShowSvcForm(false);
   }
@@ -177,7 +180,8 @@ export default function AdminPanel() {
       setPrices(p => p.map(x => x.id===editPrice.id ? updated : x));
     } else {
       const r = await fetch(`${API}?resource=prices`, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload) });
-      setPrices(p => [...p, await r.json()]);
+      const created = await r.json();
+      setPrices(p => [...p, created]);
     }
     setShowPriceForm(false);
   }
