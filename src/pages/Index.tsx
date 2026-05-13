@@ -1,61 +1,26 @@
 import { useState, useEffect, useRef } from "react";
 import Icon from "@/components/ui/icon";
+import func2url from "../../backend/func2url.json";
+
+const API = func2url.admin;
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/258a709f-23c7-42b6-8352-6f3b2496d570/files/8304651f-41a1-44a4-8419-b964c1e900bf.jpg";
 const CERT_IMAGE = "https://cdn.poehali.dev/projects/258a709f-23c7-42b6-8352-6f3b2496d570/files/f1ed86de-1161-445e-9835-661eed50e3f7.jpg";
 const TEAM_IMAGE = "https://cdn.poehali.dev/projects/258a709f-23c7-42b6-8352-6f3b2496d570/files/d67125a7-0ddc-4d51-afb3-3999ee1a5330.jpg";
 
-// ─── УСЛУГИ ────────────────────────────────────────────────────────────────
-const services = [
-  {
-    icon: "RefreshCw",
-    title: "Периодическая аккредитация",
-    desc: "Подготовка и прохождение периодической аккредитации медработников согласно Приказу Минздрава № 709н. Сопровождение от А до Я.",
-    price: "от 4 900 ₽",
-    tag: "Популярно",
-    badge: "Для врачей и медсестёр",
-  },
-  {
-    icon: "TrendingUp",
-    title: "Повышение квалификации",
-    desc: "Удостоверение о ПК (36 или 72 часа). Идут в зачёт НМО / НФО. Все медицинские и фармацевтические специальности.",
-    price: "от 3 500 ₽",
-    tag: "Быстро",
-    badge: "36 и 72 часа",
-  },
-  {
-    icon: "GraduationCap",
-    title: "Профессиональная переподготовка",
-    desc: "Диплом о переподготовке (504+ часов). Право вести медицинскую деятельность по новой специальности.",
-    price: "от 18 000 ₽",
-    tag: null,
-    badge: "504+ часов",
-  },
-  {
-    icon: "Star",
-    title: "НМО — Непрерывное медицинское образование",
-    desc: "Накопление баллов НМО для аккредитации. Вебинары, симпозиумы, образовательные модули. Всё в реестре НМФО.",
-    price: "от 1 500 ₽",
-    tag: null,
-    badge: "Баллы НМО",
-  },
-  {
-    icon: "Pill",
-    title: "Фармацевтическое образование",
-    desc: "Курсы для провизоров и фармацевтов: ПК, переподготовка, подготовка к аккредитации НФО. Дистанционно.",
-    price: "от 3 900 ₽",
-    tag: null,
-    badge: "Для фармацевтов",
-  },
-  {
-    icon: "Building2",
-    title: "Корпоративное обучение",
-    desc: "Обучение всего персонала клиники или больницы. Договор с юрлицом, закрывающие документы, скидки от 10 чел.",
-    price: "от 35 000 ₽",
-    tag: null,
-    badge: "Для организаций",
-  },
-];
+// Иконки по категории (если из БД не задана)
+const CATEGORY_ICONS: Record<string, string> = {
+  "Аккредитация": "RefreshCw",
+  "Повышение квалификации": "TrendingUp",
+  "Переподготовка": "GraduationCap",
+  "НМО": "Star",
+  "Фармация": "Pill",
+  "Корпоративное": "Building2",
+  "Другое": "BookOpen",
+};
+
+type DbService = { id: number; title: string; description: string; price: string; hours: string; category: string; is_active: boolean; };
+type DbPrice   = { id: number; name: string; price: string; period: string; features: string[]; is_highlighted: boolean; cta: string; is_active: boolean; };
 
 // ─── СТАТИСТИКА ─────────────────────────────────────────────────────────────
 const stats = [
@@ -153,53 +118,7 @@ const catalog = [
   },
 ];
 
-// ─── ЦЕНЫ ───────────────────────────────────────────────────────────────────
-const prices = [
-  {
-    name: "Повышение квалификации",
-    price: "от 3 500 ₽",
-    period: "36 или 72 часа",
-    highlight: false,
-    features: [
-      "Удостоверение о повышении квалификации",
-      "Идёт в зачёт баллов НМО / НФО",
-      "Дистанционный формат, без отрыва от работы",
-      "Документ в течение 5 рабочих дней",
-      "Вносится в ФИС ФРДО",
-    ],
-    cta: "Записаться",
-  },
-  {
-    name: "Периодическая аккредитация",
-    price: "от 4 900 ₽",
-    period: "36 ч. + портфолио",
-    highlight: true,
-    features: [
-      "Курс подготовки к аккредитации 36 часов",
-      "Помощь в формировании портфолио",
-      "Набор 50 баллов НМО / НФО",
-      "Сопровождение при подаче документов",
-      "Гарантия прохождения или возврат средств",
-      "Сертификат специалиста нового образца",
-    ],
-    cta: "Пройти аккредитацию",
-  },
-  {
-    name: "Профпереподготовка",
-    price: "от 18 000 ₽",
-    period: "504+ часов",
-    highlight: false,
-    features: [
-      "Диплом о профессиональной переподготовке",
-      "Право вести деятельность по новой специальности",
-      "Очно, заочно или дистанционно",
-      "Рассрочка на весь срок обучения",
-      "Персональный куратор",
-      "Вносится в ФИС ФРДО",
-    ],
-    cta: "Получить программу",
-  },
-];
+// ─── ЦЕНЫ (загружаются из БД) ────────────────────────────────────────────────
 
 // ─── FAQ ─────────────────────────────────────────────────────────────────────
 const faq = [
@@ -244,6 +163,19 @@ export default function Index() {
   const [activeCategory, setActiveCategory] = useState(0);
   const [showAllPrograms, setShowAllPrograms] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  // Данные из БД
+  const [dbServices, setDbServices] = useState<DbService[]>([]);
+  const [dbPrices, setDbPrices] = useState<DbPrice[]>([]);
+
+  useEffect(() => {
+    fetch(`${API}?resource=services`)
+      .then(r => r.json())
+      .then(data => setDbServices(data.filter((s: DbService) => s.is_active)));
+    fetch(`${API}?resource=prices`)
+      .then(r => r.json())
+      .then(data => setDbPrices(data.filter((p: DbPrice) => p.is_active)));
+  }, []);
 
   const heroSection = useInView(0.05);
   const aboutSection = useInView(0.1);
@@ -415,21 +347,26 @@ export default function Index() {
             <div className="gold-line mx-auto mt-6" />
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {services.map((service, i) => (
-              <div key={i} className="card-hover relative bg-white/5 border border-white/10 p-7 group cursor-pointer">
-                {service.tag && (
-                  <span className="absolute top-4 right-4 bg-gold text-white text-[10px] px-2 py-0.5 font-golos uppercase tracking-wide">{service.tag}</span>
-                )}
+            {dbServices.length === 0 ? (
+              Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="bg-white/5 border border-white/10 p-7 animate-pulse">
+                  <div className="h-4 bg-white/10 rounded mb-3 w-3/4" />
+                  <div className="h-3 bg-white/5 rounded mb-2 w-full" />
+                  <div className="h-3 bg-white/5 rounded w-2/3" />
+                </div>
+              ))
+            ) : dbServices.map((service, i) => (
+              <div key={service.id} className="card-hover relative bg-white/5 border border-white/10 p-7 group cursor-pointer">
                 <div className="flex items-start gap-4 mb-4">
                   <div className="w-11 h-11 rounded-full bg-gold/15 flex items-center justify-center flex-shrink-0 group-hover:bg-gold/25 transition-colors">
-                    <Icon name={service.icon} size={18} className="text-gold" />
+                    <Icon name={CATEGORY_ICONS[service.category] || "BookOpen"} size={18} className="text-gold" />
                   </div>
                   <div>
                     <h3 className="font-cormorant text-lg text-white font-medium leading-snug">{service.title}</h3>
-                    <span className="text-gold/70 text-[10px] font-golos tracking-wide">{service.badge}</span>
+                    <span className="text-gold/70 text-[10px] font-golos tracking-wide">{service.category}{service.hours ? ` · ${service.hours}` : ""}</span>
                   </div>
                 </div>
-                <p className="text-white/50 text-sm leading-relaxed mb-5 font-golos">{service.desc}</p>
+                <p className="text-white/50 text-sm leading-relaxed mb-5 font-golos">{service.description}</p>
                 <div className="flex items-center justify-between pt-4 border-t border-white/10">
                   <span className="text-gold font-golos font-semibold text-sm">{service.price}</span>
                   <a href="#contacts" className="text-white/30 hover:text-gold transition-colors group-hover:text-gold text-xs font-golos flex items-center gap-1">
@@ -587,26 +524,35 @@ export default function Index() {
             <p className="text-muted-foreground mt-4 text-sm font-golos">Рассрочка без процентов · Счёт для юрлиц · Налоговый вычет 13%</p>
           </div>
           <div className="grid md:grid-cols-3 gap-7 max-w-5xl mx-auto">
-            {prices.map((plan, i) => (
-              <div key={i} className={`card-hover relative p-8 border-2 ${plan.highlight ? 'border-gold bg-dark text-white shadow-2xl shadow-gold/15' : 'border-border bg-card'}`}>
-                {plan.highlight && (
+            {dbPrices.length === 0 ? (
+              Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="border-2 border-border bg-card p-8 animate-pulse">
+                  <div className="h-3 bg-muted rounded w-1/2 mb-3" />
+                  <div className="h-8 bg-muted rounded w-3/4 mb-2" />
+                  <div className="h-3 bg-muted rounded w-1/3 mb-8" />
+                  <div className="space-y-2">{Array.from({length:4}).map((_,j)=><div key={j} className="h-3 bg-muted rounded"/>)}</div>
+                </div>
+              ))
+            ) : dbPrices.map((plan) => (
+              <div key={plan.id} className={`card-hover relative p-8 border-2 ${plan.is_highlighted ? 'border-gold bg-dark text-white shadow-2xl shadow-gold/15' : 'border-border bg-card'}`}>
+                {plan.is_highlighted && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                     <span className="bg-gold text-white text-[10px] px-4 py-1 font-golos font-medium uppercase tracking-wider">Популярно</span>
                   </div>
                 )}
-                <div className={`text-[10px] tracking-[0.25em] uppercase mb-2 font-golos ${plan.highlight ? 'text-gold' : 'text-muted-foreground'}`}>{plan.name}</div>
-                <div className={`font-cormorant text-4xl font-semibold mb-1 ${plan.highlight ? 'text-white' : 'text-foreground'}`}>{plan.price}</div>
-                <div className={`text-xs mb-8 font-golos ${plan.highlight ? 'text-white/45' : 'text-muted-foreground'}`}>{plan.period}</div>
+                <div className={`text-[10px] tracking-[0.25em] uppercase mb-2 font-golos ${plan.is_highlighted ? 'text-gold' : 'text-muted-foreground'}`}>{plan.name}</div>
+                <div className={`font-cormorant text-4xl font-semibold mb-1 ${plan.is_highlighted ? 'text-white' : 'text-foreground'}`}>{plan.price}</div>
+                <div className={`text-xs mb-8 font-golos ${plan.is_highlighted ? 'text-white/45' : 'text-muted-foreground'}`}>{plan.period}</div>
                 <div className="space-y-3 mb-8">
                   {plan.features.map((f, j) => (
                     <div key={j} className="flex items-start gap-3">
                       <Icon name="Check" size={13} className="text-gold flex-shrink-0 mt-0.5" />
-                      <span className={`text-sm font-golos leading-snug ${plan.highlight ? 'text-white/75' : 'text-foreground/65'}`}>{f}</span>
+                      <span className={`text-sm font-golos leading-snug ${plan.is_highlighted ? 'text-white/75' : 'text-foreground/65'}`}>{f}</span>
                     </div>
                   ))}
                 </div>
                 <a href="#contacts"
-                  className={`block w-full py-3 text-sm font-golos font-medium text-center transition-all duration-300 ${plan.highlight
+                  className={`block w-full py-3 text-sm font-golos font-medium text-center transition-all duration-300 ${plan.is_highlighted
                     ? 'bg-gold text-white hover:bg-gold-light'
                     : 'border border-gold text-gold hover:bg-gold hover:text-white'}`}>
                   {plan.cta}
