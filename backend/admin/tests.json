@@ -1,0 +1,28 @@
+{
+  "tests": [
+    {
+      "name": "GET employees",
+      "method": "GET",
+      "path": "/?resource=employees",
+      "expectedStatus": 200,
+      "expectedBody": [],
+      "bodyMatcher": "exact"
+    },
+    {
+      "name": "GET proposals",
+      "method": "GET",
+      "path": "/?resource=proposals",
+      "expectedStatus": 200,
+      "expectedBody": [],
+      "bodyMatcher": "exact"
+    },
+    {
+      "name": "GET contracts",
+      "method": "GET",
+      "path": "/?resource=contracts",
+      "expectedStatus": 200,
+      "expectedBody": [],
+      "bodyMatcher": "exact"
+    }
+  ]
+}
