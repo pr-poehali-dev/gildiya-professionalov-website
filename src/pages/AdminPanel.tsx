@@ -20,18 +20,9 @@ type Proposal = {
   author: string;
 };
 
-const mockEmployees: Employee[] = [
-  { id: 1, name: "Анна Петрова", email: "petrova@gildiya.ru", role: "Менеджер", status: "active", proposals: 12 },
-  { id: 2, name: "Дмитрий Козлов", email: "kozlov@gildiya.ru", role: "Старший менеджер", status: "active", proposals: 24 },
-  { id: 3, name: "Елена Смирнова", email: "smirnova@gildiya.ru", role: "Менеджер", status: "inactive", proposals: 5 },
-];
+const mockEmployees: Employee[] = [];
 
-const mockProposals: Proposal[] = [
-  { id: 1, client: "ООО «Стройгрупп»", service: "Корпоративное обучение", amount: "120 000 ₽", status: "sent", date: "12.05.2024", author: "Анна Петрова" },
-  { id: 2, client: "АО «ТехноПром»", service: "Сертификация 15 специалистов", amount: "180 000 ₽", status: "accepted", date: "10.05.2024", author: "Дмитрий Козлов" },
-  { id: 3, client: "ЗАО «МедФарм»", service: "Переподготовка специалистов", amount: "75 000 ₽", status: "draft", date: "13.05.2024", author: "Анна Петрова" },
-  { id: 4, client: "ИП Волков А.С.", service: "Сертификация 1 специалиста", amount: "8 000 ₽", status: "rejected", date: "08.05.2024", author: "Елена Смирнова" },
-];
+const mockProposals: Proposal[] = [];
 
 const statusLabels: Record<string, { label: string; color: string }> = {
   draft: { label: "Черновик", color: "bg-yellow-500/15 text-yellow-600 border-yellow-500/30" },
@@ -354,38 +345,10 @@ export default function AdminPanel() {
               </button>
             </div>
 
-            <div className="grid gap-4">
-              {[
-                { num: "Д-2024/042", client: "АО «ТехноПром»", service: "Сертификация специалистов", amount: "180 000 ₽", signed: "10.05.2024", expires: "10.05.2025" },
-                { num: "Д-2024/038", client: "ООО «Стройгрупп»", service: "Корпоративное обучение", amount: "120 000 ₽", signed: "01.05.2024", expires: "01.05.2025" },
-                { num: "Д-2024/031", client: "ГК «РосЭнерго»", service: "Оценка квалификации", amount: "240 000 ₽", signed: "15.04.2024", expires: "15.04.2025" },
-              ].map((c, i) => (
-                <div key={i} className="bg-card border border-border p-6 rounded-sm flex flex-col md:flex-row md:items-center gap-4 hover:border-gold/30 transition-colors group">
-                  <div className="w-12 h-12 bg-gold/10 rounded-sm flex items-center justify-center flex-shrink-0">
-                    <Icon name="ScrollText" size={20} className="text-gold" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-1">
-                      <span className="text-xs font-golos text-gold font-semibold">{c.num}</span>
-                      <span className="text-xs text-muted-foreground font-golos">{c.signed}</span>
-                    </div>
-                    <div className="font-golos text-sm font-medium text-foreground">{c.client}</div>
-                    <div className="text-xs text-muted-foreground font-golos mt-0.5">{c.service}</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-cormorant text-2xl text-gold font-semibold">{c.amount}</div>
-                    <div className="text-xs text-muted-foreground font-golos">до {c.expires}</div>
-                  </div>
-                  <div className="flex gap-2 ml-4">
-                    <button className="text-muted-foreground hover:text-gold transition-colors p-2 hover:bg-gold/10">
-                      <Icon name="Download" size={16} />
-                    </button>
-                    <button className="text-muted-foreground hover:text-gold transition-colors p-2 hover:bg-gold/10">
-                      <Icon name="Send" size={16} />
-                    </button>
-                  </div>
-                </div>
-              ))}
+            <div className="bg-card border border-border p-12 text-center">
+              <Icon name="ScrollText" size={36} className="text-muted-foreground/30 mx-auto mb-4" />
+              <p className="text-muted-foreground font-golos text-sm">Договоров пока нет</p>
+              <p className="text-muted-foreground/50 font-golos text-xs mt-1">Нажмите «Создать договор», чтобы добавить первый</p>
             </div>
           </div>
         )}
