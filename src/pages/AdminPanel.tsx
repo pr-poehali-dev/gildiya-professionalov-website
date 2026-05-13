@@ -195,7 +195,8 @@ export default function AdminPanel() {
   async function addContract() {
     if (!newCon.number||!newCon.client||!newCon.service||!newCon.amount||!newCon.signed_at||!newCon.expires_at) return;
     const r = await fetch(`${API}?resource=contracts`, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(newCon) });
-    setContracts(p => [await r.json(), ...p]);
+    const created = await r.json();
+    setContracts(p => [created, ...p]);
     setNewCon({ number:"", client:"", service:"", amount:"", signed_at:"", expires_at:"" }); setShowConForm(false);
   }
   async function delContract(id: number) {
